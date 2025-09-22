@@ -1,8 +1,7 @@
-
 <script>
-	import { addTodo } from '$lib/store/store.js';
+	import { addTodo } from '$lib/store/todoStore.svelte.js';
 	import { priorityOptions } from '$lib/utils.js';
-	import { Box, Stack, Flex, Grid } from './utils';
+	import { Box, Stack, Flex, Grid } from './ui';
 
 	let showForm = false;
 	let title = '';
@@ -20,7 +19,6 @@
 			priority
 		});
 		
-		// Reset form
 		resetForm();
 	}
 
@@ -38,7 +36,7 @@
 		on:click={() => showForm = true}
 		class="w-full p-3 border-2 border-dashed border-tertiary rounded-lg text-text-secondary hover:border-accent hover:text-accent transition-colors"
 	>
-		+ Add New Todo
+		+ Add New Task
 	</button>
 {:else}
 	<Box variant="primary" border="border border-tertiary">

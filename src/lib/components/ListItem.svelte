@@ -1,7 +1,7 @@
 <script>
-	import { updateTodo, deleteTodo, toggleComplete } from '$lib/store/store.js';
+	import { updateTodo, deleteTodo, toggleComplete } from '$lib/store/todoStore.svelte.js';
 	import { getPriorityColor, formatDate, isOverdue, priorityOptions } from '$lib/utils.js';
-	import { Box, Stack, Flex, Grid, Grow } from './utils';
+	import { Stack, Flex, Grid, Grow } from './ui';
 
 	export let item;
 
@@ -48,7 +48,7 @@
 			try {
 				deleteTodo(item.id);
 			} catch (error) {
-				console.error('Failed to delete todo:', error);
+				console.error('Failed to delete todo. Please try again.');
 				alert('Failed to delete todo. Please try again.');
 			}
 		}
