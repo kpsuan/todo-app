@@ -1,46 +1,62 @@
 <script>
-  import { sortedItems, stats } from '$lib/store/todoStore.svelte.js';
+  import { filteredItems, stats, filter } from '$lib/store/todoStore.svelte.js';
   import ListItem from './ListItem.svelte';
   import AddTodoForm from './AddTodoForm.svelte';
   import { Stack, Box, Grid } from './ui';
+
+  function setFilter(value) {
+    filter.set(value);
+  }
+
+  // Define filters in one place
+  const filters = [
+    { key: 'all', label: 'Total', color: 'text-accent', value: () => $stats.total },
+    { key: 'completed', label: 'Completed', color: 'text-green-400', value: () => $stats.completed },
+    { key: 'active', label: 'Pending', color: 'text-orange-400', value: () => $stats.pending }
+  ];
 </script>
 
 <Stack spacing="space-y-4">
-	<!-- Add Todo Form -->
-	<AddTodoForm />
+  <!-- Add Todo Form -->
+  <AddTodoForm />
 
-	<!-- Todo Statistics-->
-	{#if $stats.total > 0}
-		<Box padding="p-2" className="rounded-lg">
-			<Grid cols={3} gap="gap-4" className="text-sm text-center">
-				<Box>
-					<div class="font-bold text-lg text-accent">{$stats.total}</div>
-					<div class="text-text-secondary">Total</div>
-				</Box>
-				<Box>
-					<div class="font-bold text-lg text-green-400">{$stats.completed}</div>
-					<div class="text-text-secondary">Completed</div>
-				</Box>
-				<Box>
-					<div class="font-bold text-lg text-orange-400">{$stats.pending}</div>
-					<div class="text-text-secondary">Pending</div>
-				</Box>
-			</Grid>
-		</Box>
-	{/if}
+  <!-- Todo Statistics -->
+  {#if $stats.total > 0}
+    <Box padding="p-2" className="rounded-lg">
+      <Grid cols={3} gap="gap-4" className="text-sm text-center">
+        {#each filters as { key, label, color, value }}
+          <Box
+            on:click={() => setFilter(key)}
+            class="cursor-pointer rounded-lg transition-colors hover:opacity-80"
+          >
+            <div class={`font-bold text-lg ${$filter === key ? color : 'text-text-secondary'}`}>
+              {value()}
+            </div>
+            <div class={`${$filter === key ? `${color} font-semibold` : 'text-text-secondary'}`}>
+              {label}
+            </div>
+          </Box>
+        {/each}
+      </Grid>
+    </Box>
+  {/if}
 
-	<!-- Todo List -->
-	{#if $stats.total > 0}
-		<Stack spacing="space-y-2">
-			{#each $sortedItems as item (item.id)}
-				{#if item && item.id}
-					<ListItem {item} />
-				{/if}
-			{/each}
-		</Stack>
-	{:else}
-		<Box className="text-center py-8 text-text-secondary border border-tertiary rounded-lg" padding="p-6">
-			<p>No todos yet. Add one above to get started!</p>
-		</Box>
-	{/if}
+  <!-- Todo List -->
+  {#if $stats.total > 0}
+    <Stack spacing="space-y-2">
+      {#each $filteredItems as item (item.id)}
+        {#if item && item.id}
+          <ListItem {item} />
+        {/if}
+      {/each}
+    </Stack>
+  {:else}
+    <Box
+      className="text-center py-8 text-text-secondary border border-tertiary rounded-lg"
+      padding="p-6"
+    >
+      <p>No todos yet. Add one above to get started!</p>
+    </Box>
+    <p class="text-xs text-gray-400">Current filter: {$filter}</p>
+  {/if}
 </Stack>

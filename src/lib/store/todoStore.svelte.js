@@ -9,7 +9,7 @@ const _default = {
 	items: [{
 		id: "demo-1",
 		title: "Welcome to your todo app",
-		description: "This is a sample todo with all the new features",
+		description: "This is a sample todo description",
 		dueDate: new Date().toISOString().split('T')[0],
 		priority: "medium",
 		completed: false,
@@ -78,6 +78,7 @@ export const stats = derived(app, ($app) => {
 	return { total, pending, completed };
 });
 
+
 // crud actionss
 export function addTodo(todoData) {
 	app.update((state) => {
@@ -138,3 +139,20 @@ export function toggleComplete(id) {
 		return { ...state, date_updated: Date.now(), items };
 	});
 }
+
+export const filter = writable('all');
+
+// derived store that filters based on filter + sorted items
+export const filteredItems = derived(
+  [sortedItems, filter],
+  ([$sortedItems, $filter]) => {
+    switch ($filter) {
+      case 'active':
+        return $sortedItems.filter(todo => !todo.completed);
+      case 'completed':
+        return $sortedItems.filter(todo => todo.completed);
+      default:
+        return $sortedItems;
+    }
+  }
+);
