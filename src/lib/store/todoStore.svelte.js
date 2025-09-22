@@ -1,6 +1,7 @@
 import { writable, derived } from "svelte/store";
 
 const app_name = "todo_app_2025";
+const hasLocalStorage = typeof localStorage !== 'undefined';
 
 const _default = {
 	date_created: Date.now(),
@@ -21,6 +22,7 @@ const _default = {
 
 function load() {
 	try {
+		if (!hasLocalStorage) return _default;
 		return JSON.parse(localStorage.getItem(app_name)) || _default;
 	} catch {
 		return _default;
@@ -28,7 +30,10 @@ function load() {
 }
 
 function save(state) {
-	localStorage.setItem(app_name, JSON.stringify(state));
+	if (!hasLocalStorage) return;
+	try {
+		localStorage.setItem(app_name, JSON.stringify(state));
+	} catch {}
 }
 
 const store = writable(load());
