@@ -1,5 +1,4 @@
 import { writable, derived } from "svelte/store";
-import { browser } from "$app/environment";
 
 const app_name = "todo_app_2025";
 
@@ -21,7 +20,6 @@ const _default = {
 };
 
 function load() {
-	if (!browser) return _default;
 	try {
 		return JSON.parse(localStorage.getItem(app_name)) || _default;
 	} catch {
@@ -30,15 +28,13 @@ function load() {
 }
 
 function save(state) {
-	if (browser) {
-		localStorage.setItem(app_name, JSON.stringify(state));
-	}
+	localStorage.setItem(app_name, JSON.stringify(state));
 }
 
 const store = writable(load());
 
 store.subscribe((value) => {
-	if (browser) save(value);
+	save(value);
 });
 
 export const app = store;
