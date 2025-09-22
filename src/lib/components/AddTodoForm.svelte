@@ -1,5 +1,5 @@
 <script>
-  import { addTodo } from '$lib/store/todoStore.svelte.js';
+  import { addTodo } from '$lib';
   import TodoForm from './TodoForm.svelte';
 
   let showForm = false;

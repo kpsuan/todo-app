@@ -1,6 +1,5 @@
 <script>
-  import { Stack, Flex, Grid, Box } from './ui';
-  import { priorityOptions } from '$lib/utils.js';
+  import { Stack, Flex, Grid, Box, priorityOptions } from '$lib';
 
   export let todo = { title: '', description: '', dueDate: '', priority: 'medium' };
   export let onSubmit = () => {};

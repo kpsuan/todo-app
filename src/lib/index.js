@@ -4,19 +4,16 @@ export { default as ListItem } from './components/ListItem.svelte';
 export { default as AddTodoForm } from './components/AddTodoForm.svelte';
 
 // Utility components
-export { 
-	Container, 
-	Flex, 
-	Grow, 
-	Section, 
-	Box, 
-	Stack, 
-	Grid 
-} from './components/utils';
+export { default as Container } from './components/ui/Container.svelte';
+export { default as Flex } from './components/ui/Flex.svelte';
+export { default as Grow } from './components/ui/Grow.svelte';
+export { default as Section } from './components/ui/Section.svelte';
+export { default as Box } from './components/ui/Box.svelte';
+export { default as Stack } from './components/ui/Stack.svelte';
+export { default as Grid } from './components/ui/Grid.svelte';
 
 // Store exports
-// Export store and derived stores - remove runes exports
-export { addTodo, updateTodo, deleteTodo, toggleComplete, save, appStore } from './store/store.js';
+export { app, stats, sortedItems, filteredItems, filter, addTodo, updateTodo, deleteTodo, toggleComplete } from './store/todoStore.svelte.js';
 
 // Utility functions
 export { getPriorityColor, formatDate, isOverdue, priorityOptions } from './utils.js';

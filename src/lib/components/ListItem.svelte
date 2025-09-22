@@ -1,7 +1,5 @@
 <script>
-  import { updateTodo, deleteTodo, toggleComplete } from '$lib/store/todoStore.svelte.js';
-  import { getPriorityColor, formatDate, isOverdue } from '$lib/utils.js';
-  import { Flex, Grow } from './ui';
+  import { updateTodo, deleteTodo, toggleComplete, getPriorityColor, formatDate, isOverdue, Flex, Grow } from '$lib';
   import TodoForm from './TodoForm.svelte';
 
   export let item;

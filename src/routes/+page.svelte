@@ -1,8 +1,6 @@
 <script>
 	import '../app.css';
-	import { stats } from '$lib/store/todoStore.svelte.js';
-	import List from '$lib/components/List.svelte';
-	import { Container, Section, Box, Stack } from '$lib/components/ui';
+	import { stats, List, Container, Section, Box, Stack } from '$lib';
 </script>
 
 <Box variant="primary" className="min-h-screen h-full w-full fixed inset-0 overflow-auto">

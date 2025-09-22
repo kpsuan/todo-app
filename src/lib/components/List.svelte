@@ -1,8 +1,5 @@
 <script>
-  import { filteredItems, stats, filter } from '$lib/store/todoStore.svelte.js';
-  import ListItem from './ListItem.svelte';
-  import AddTodoForm from './AddTodoForm.svelte';
-  import { Stack, Box, Grid } from './ui';
+  import { filteredItems, stats, filter, ListItem, AddTodoForm, Stack, Box, Grid } from '$lib';
 
   function setFilter(value) {
     filter.set(value);
