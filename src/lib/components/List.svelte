@@ -26,7 +26,7 @@
         {#each filters as { key, label, color, value }}
           <Box
             on:click={() => setFilter(key)}
-            class="cursor-pointer rounded-lg transition-colors hover:opacity-80"
+            className="cursor-pointer rounded-lg transition-colors hover:opacity-80"
           >
             <div class={`font-bold text-lg ${$filter === key ? color : 'text-text-secondary'}`}>
               {value()}
