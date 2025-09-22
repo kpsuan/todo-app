@@ -8,7 +8,6 @@
     filter.set(value);
   }
 
-  // Define filters in one place
   const filters = [
     { key: 'all', label: 'Total', color: 'text-accent', value: () => $stats.total },
     { key: 'completed', label: 'Completed', color: 'text-green-400', value: () => $stats.completed },

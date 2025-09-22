@@ -142,7 +142,6 @@ export function toggleComplete(id) {
 
 export const filter = writable('all');
 
-// derived store that filters based on filter + sorted items
 export const filteredItems = derived(
   [sortedItems, filter],
   ([$sortedItems, $filter]) => {
